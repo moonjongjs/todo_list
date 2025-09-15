@@ -9,9 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.9.0",
+    "@tanstack/react-query": "^5.87.4",
+    "@tanstack/react-query-devtools": "^5.87.4",
+    "axios": "^1.12.2",
+    "date-fns": "^4.1.0",
+    "next": "13.5.11",
     "react": "^18",
     "react-dom": "^18",
-    "next": "13.5.11"
+    "react-redux": "^9.2.0",
+    "sass": "^1.92.1",
+    "sass-loader": "^16.0.5"
   },
   "devDependencies": {
     "eslint": "^8",
