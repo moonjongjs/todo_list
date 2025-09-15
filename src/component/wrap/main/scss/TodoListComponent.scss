@@ -159,7 +159,7 @@
 
             ul {
               width: 100%;
-              padding: 0;
+              padding: 0 20px;
               li {
                 width: 100%;
                 border-bottom: 1px solid #eee;
@@ -176,88 +176,78 @@
 
                 > div {
                   width: 100%;
-                  height: 100%;
-                  padding: 10px 20px 10px 0;
+                  padding: 10px 0;
                   display: flex;
                   position: relative;
                   align-items: center;
-                  justify-content: space-between;
-                  .left-box {
-                    display: flex;
-                    height: 100%;
-                    align-items: center;
-                    input[type='checkbox'] {
-                      width: 20px;
-                      height: 20px;
-                      margin-right: 15px;
-                      appearance: none;
-                      border: 1px solid #aaa;
-                      border-radius: 5px;
-                      &:checked {
-                        background: url(../../../../../public/img/check_24dp_5F6368_FILL0_wght300_GRAD0_opsz24_red.svg) no-repeat 50% 50%;
-                        background-size: 13px auto;                      
-                      }
-                    }
-                    p {
-                      // width: calc(100% - 100px);
-                      width: auto;
-                      height: 35px;
-                      display: flex;
-                      align-items: center;
-                      font-size: 15px;
-                      justify-content: space-between;
-                      white-space: nowrap;
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                      span {
-                        color: #555;
-                        margin-right: 20px;
-                        font-size: 15px;
-                      }                   
-                      strong{
-                        font-weight: 400;
-                        color: #333;   
-                        font-size: 15px;                   
-                      }
+                  input[type='checkbox'] {
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 20px;
+                    appearance: none;
+                    border: 1px solid #aaa;
+                    border-radius: 5px;
+                    &:checked {
+                      background: url(../../../../../public/img/check_24dp_5F6368_FILL0_wght300_GRAD0_opsz24_red.svg) no-repeat 50% 50%;
+                      background-size: 13px auto;                      
                     }
                   }
-                  .right-box {
+
+                  p {
+                    width: calc(100% - 190px);
+                    height: 35px;
                     display: flex;
-                    button.del-btn {
-                      width: 25px;
+                    align-items: center;
+                    font-size: 15px;
+                    justify-content: space-between;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    strong{
+                      font-weight: 400;
+                      color: #555;                      
+                    }
+                    span {
+                      color: #555;
+                    }                   
+                  }
+
+                  button.del-btn {
+                    width: 25px;
+                    height: 25px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transform: translate(10px, 0);                    
+                    background: url(../../../../../public/img/close_24dp_5F6368_FILL0_wght300_GRAD0_opsz24.svg) no-repeat 50% 50%;
+                    background-size: 14px 14px;
+                    transition: all 0.3s;
+                    &:hover {   
+                      border-color:  rgba(204, 0, 0, 0.5);
+                      background-image: url(../../../../../public/img/close_24dp_5F6368_FILL0_wght300_GRAD0_opsz24_red.svg);
+                    }
+                  }
+
+                  .update-box {
+                    position: absolute;
+                    top: 0;
+                    right: 10px;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    button {
+                      width: 45px;
                       height: 25px;
-                      margin-right: 10px;
+                      background: none;
+                      color: #555;
                       border: 1px solid #ccc;
+                      margin: 0 2px;
                       border-radius: 5px;
                       cursor: pointer;
-                      transform: translate(10px, 0);                    
-                      background: url(../../../../../public/img/close_24dp_5F6368_FILL0_wght300_GRAD0_opsz24.svg) no-repeat 50% 50%;
-                      background-size: 14px 14px;
                       transition: all 0.3s;
-                      &:hover {   
+                      &:hover {
+                        color: #c00;
                         border-color:  rgba(204, 0, 0, 0.5);
-                        background-image: url(../../../../../public/img/close_24dp_5F6368_FILL0_wght300_GRAD0_opsz24_red.svg);
-                      }
-                    }
-
-                    .update-box {
-                      height: 100%;
-                      display: flex;
-                      align-items: center;
-                      button {
-                        width: 40px;
-                        height: 25px;
-                        background: none;
-                        color: #555;
-                        border: 1px solid #ccc;
-                        margin: 0 2px;
-                        border-radius: 5px;
-                        cursor: pointer;
-                        transition: all 0.3s;
-                        &:hover {
-                          color: #c00;
-                          border-color:  rgba(204, 0, 0, 0.5);
-                        }
                       }
                     }
                   }
@@ -279,6 +269,67 @@
                 }
               }
             }
+            .pagenation-box{
+                width: 100%;  
+                display: flex;
+                justify-content: center;
+                padding: 50px 0;
+                ul {
+                  width: auto;
+                  display: flex;
+                  li {
+                    width: auto;
+                    padding: 0;
+                    margin: 0;
+                      a {
+                        margin: 0 2px;
+                        font-size: 14px;
+                        color: #444;
+                        display: flex;
+                        width: 42px;
+                        height: 40px;
+                        border: 1px solid #999;
+                        justify-content: center;
+                        align-items: center;
+                        transition: all 0.3s;
+                        background: #fff;
+                        &:hover {
+                          border: 1px solid #000;
+                          color: #000;
+                        }  
+                        &.on{
+                          background: #232323;
+                          color: #fff;
+                        }
+                      }
+                  }
+                }
+                button{
+                    margin: 0 2px;
+                    font-size: 14px;
+                    color: #444;
+                    width: 42px;
+                    height: 40px;
+                    border: 1px solid #999;
+                    transition: all 0.3s;
+                    background: #fff;
+                    &.icon1 {
+                        font-size: 21px;
+                    }
+                    &.icon2 {
+                        font-size: 16px;
+                    }
+                    &:hover {
+                        border: 1px solid #000;
+                        color: #000;
+                    }  
+                    &.on{
+                        background: #232323;
+                        color: #fff;
+                    }
+                }
+            }
+
           }
         }
       }

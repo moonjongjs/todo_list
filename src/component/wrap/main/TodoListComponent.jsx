@@ -21,6 +21,26 @@ export default function TodoListComponent() {
     const [del, setDel] = useState('');                 // 삭제 번호 저장 상태변수
     const delNum = useRef(null);
 
+    const [page, setPage] = React.useState(1);
+
+    // 게산만 사용하는 일반변수 선언
+    const list = 5;  // 한페이지 목록 줄수
+    const 시작 = (page - 1) * list;
+    const 끝   = 시작 + list;
+    const 슬라이스 = todoList.slice(시작,  끝);  // 한페이지 단위로 5줄씩 배열 저장
+
+    // 그룹 페이지네이션
+    const 총페이지수 = Math.ceil(todoList.length / list );
+    const 페이지그룹 = 5;
+    const 현재그룹번호 = Math.floor((page-1)/페이지그룹);
+    const 총그룹수 = Math.ceil(총페이지수 / 페이지그룹);
+    const 그룹시작 = 현재그룹번호 * 페이지그룹 + 1;
+    const 그룹끝 =  Math.min( (그룹시작 + 페이지그룹 - 1), 총페이지수 );
+    const 페이지번호 = [...Array(그룹끝 - 그룹시작 + 1)].map((item, i)=>그룹시작+i);
+
+  
+
+
 
     // [3] 리액트 쿼리 구현
     /////////////////////////////////////////////////////////////////////////
@@ -344,6 +364,14 @@ export default function TodoListComponent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[crud])
 
+
+    // 다음, 이전, 페이지번호 클릭 이벤트
+    const onClickPage=(e, n)=>{
+        e.preventDefault();
+        setPage( n ) // 페이지 번호 변경
+    }
+
+
     return (
         <section id="todoSection">
             <div className="container">
@@ -390,44 +418,42 @@ export default function TodoListComponent() {
 
                                     
                                 {   // eslint-disable-next-line array-callback-return                                 
-                                    todoList.map((item)=>{
+                                    슬라이스.map((item)=>{
                                         if(item.완료===0){
                                             return(
                                                <li key={item.번호} data-id={item.번호} className={`${item.완료?'completed':''} ${(crud==='UPDATE' && (update.번호===item.번호)) ? ' on':''}`}>
                                                    <div>
-                                                        <div className="left-box">
-                                                            <input 
-                                                                type="checkbox" 
-                                                                data-id={item.번호} 
-                                                                name={`chk${item.번호}`} 
-                                                                id={`chk${item.번호}`}
-                                                                className='chk'
-                                                                value={item.할일}
-                                                                checked={item.완료}
-                                                                onChange={(e)=>onChangeCheckbox(e, item)}
-                                                            />
+                                                        <input 
+                                                            type="checkbox" 
+                                                            data-id={item.번호} 
+                                                            name={`chk${item.번호}`} 
+                                                            id={`chk${item.번호}`}
+                                                            className='chk'
+                                                            value={item.할일}
+                                                            checked={item.완료}
+                                                            onChange={(e)=>onChangeCheckbox(e, item)}
+                                                        />
+                                                        <p onClick={()=>onClickTodoUpdate(item)}>
+                                                            <strong>{item.할일}</strong>                                                            
+                                                            <span>{format(item.기한, 'yyyy-MM-dd HH:mm')}</span>
+                                                        </p>
+                                                       
 
-                                                            <p onClick={()=>onClickTodoUpdate(item)}>
-                                                                <span>{format(item.기한, 'yyyy-MM-dd HH:mm')}</span> 
-                                                                <strong>{item.할일}</strong>
-                                                            </p>
-                                                        </div>
-                                                        <span className='right-box'>                                                            
-                                                            
-                                                            {
-                                                            (crud==='UPDATE' && (update.번호===item.번호)) && 
-                                                            <span className='update-box'>
-                                                                <button  onClick={onClickUpdateOk}>수정</button>
-                                                                <button  onClick={onClickUpdateCancle}>취소</button>
-                                                            </span>
-                                                            }   
-                                                            <button
-                                                                className="del-btn"
-                                                                value={item.번호}
-                                                                data-id={item.번호}
-                                                                onClick={(e)=>onClickDelBtn(e,item.번호)}
-                                                            />                                                 
+                                                        <button
+                                                            className="del-btn"
+                                                            value={item.번호}
+                                                            data-id={item.번호}
+                                                            onClick={(e)=>onClickDelBtn(e,item.번호)}
+                                                        />
+
+                                                        {
+                                                        (crud==='UPDATE' && (update.번호===item.번호)) && 
+                                                        <span className='update-box'>
+                                                            <button  onClick={onClickUpdateOk}>수정</button>
+                                                            <button  onClick={onClickUpdateCancle}>취소</button>
                                                         </span>
+                                                        }                                                    
+
                                                    </div>
                                                </li> 
                                             )
@@ -435,6 +461,10 @@ export default function TodoListComponent() {
                                     })     
                                }
                             </ul>
+
+
+
+
                         </div>
 
                         <hr />
@@ -452,41 +482,36 @@ export default function TodoListComponent() {
                                 todoList.map((item)=>{
                                     if(item.완료===1){
                                         return(
-                                            <li key={item.번호} data-id={item.번호} className={`${item.완료?'completed':''} ${(crud==='UPDATE' && (update.번호===item.번호)) ? ' on':''}`}>
+                                            <li key={item.번호} data-id={item.번호} className='completed'>
                                                 <div>
-                                                    <div className="left-box">
-                                                        <input 
-                                                            type="checkbox" 
-                                                            data-id={item.번호} 
-                                                            name={`chk${item.번호}`} 
-                                                            id={`chk${item.번호}`}
-                                                            className='chk'
-                                                            value={item.할일}
-                                                            checked={item.완료}
-                                                            onChange={(e)=>onChangeCheckbox(e, item)}
-                                                        />
-
-                                                        <p onClick={()=>onClickTodoUpdate(item)}>
-                                                            <span>{format(item.기한, 'yyyy-MM-dd HH:mm')}</span> 
-                                                            <strong>{item.할일}</strong>
-                                                        </p>
-                                                    </div>
-                                                    <span className='right-box'>                                                            
-                                                        
-                                                        {
-                                                        (crud==='UPDATE' && (update.번호===item.번호)) && 
-                                                        <span className='update-box'>
-                                                            <button  onClick={onClickUpdateOk}>수정</button>
-                                                            <button  onClick={onClickUpdateCancle}>취소</button>
-                                                        </span>
-                                                        }   
-                                                        <button
-                                                            className="del-btn"
-                                                            value={item.번호}
-                                                            data-id={item.번호}
-                                                            onClick={(e)=>onClickDelBtn(e,item.번호)}
-                                                        />                                                 
+                                                    <input 
+                                                        type="checkbox" 
+                                                        data-id={item.번호} 
+                                                        name={`chk${item.번호}`} 
+                                                        id={`chk${item.번호}`}
+                                                        className='chk'
+                                                        value={item.할일}
+                                                        checked={item.완료}
+                                                        onChange={(e)=>onChangeCheckbox(e, item)}
+                                                    />
+                                                    <p onClick={()=>onClickTodoUpdate(item)}>
+                                                        <strong>{item.할일}</strong>                                                            
+                                                        <span>{format(item.기한, 'yyyy-MM-dd HH:mm')}</span>
+                                                    </p>
+                                                    
+                                                    <button
+                                                        className="del-btn"
+                                                        value={item.번호}
+                                                        data-id={item.번호}
+                                                        onClick={(e)=>onClickDelBtn(e,item.번호)}
+                                                    />                                                       
+                                                    {
+                                                    (crud==='UPDATE' && (update.번호===item.번호)) && 
+                                                    <span className='update-box'>
+                                                        <button  onClick={onClickUpdateOk}>수정</button>
+                                                        <button  onClick={onClickUpdateCancle}>취소</button>
                                                     </span>
+                                                    }                                                    
                                                 </div>
                                             </li> 
                                         )
@@ -496,6 +521,47 @@ export default function TodoListComponent() {
 
                             </ul>
                         </div>
+
+
+                            <div className="pagenation-box">
+
+                                {/* 처음 */}
+                            {    
+                                현재그룹번호 > 0 &&
+                                <button className="icon1"  onClick={(e)=>onClickPage(e, 1)}><i className="bi bi-chevron-bar-left"></i></button>
+                            }
+                                {/* 이전 */}
+                            {
+                                그룹시작 > 1 && 
+                                <button className="icon2" onClick={(e)=>onClickPage(e, 그룹시작-1)}><i className="bi bi-chevron-left"></i></button>
+                            }
+                                <ul>
+                                {
+                                    페이지번호.map((n)=>
+                                        <li key={n}  data-key={n} >
+                                            <a href="!#" 
+                                                title={n} 
+                                                className={page===n ? "on" : ''}
+                                                onClick={(e)=>onClickPage(e, n)}
+                                            >{n}</a>
+                                        </li>
+                                    )
+
+                                }
+                                </ul>
+
+                                {/* 다음 */}
+                            {
+                                그룹끝 < 총페이지수 &&
+                                <button className="icon2" onClick={(e)=>onClickPage(e, 그룹끝+1)}><i className="bi bi-chevron-right"></i></button>
+                            }
+                                {/* 끝 */}
+                            {
+                                현재그룹번호 < (총그룹수-1) && 
+                                <button className="icon1" onClick={(e)=>onClickPage(e, 총페이지수)}><i className="bi bi-chevron-bar-right"></i></button>
+                            }
+
+                            </div>
 
                     </div>
                 </div>
