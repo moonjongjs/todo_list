@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
       <body>
           <ProviderRedux>
             <ProviderQuery>
-              <WrapComponent>children={children}</WrapComponent>
+              <WrapComponent>{children}</WrapComponent>
             </ProviderQuery>
           </ProviderRedux>        
       </body>

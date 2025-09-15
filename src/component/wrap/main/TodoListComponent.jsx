@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { confirmModalAction } from '@/app/store/confirmModal';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-export default function TodoListComponent({children}) {
+export default function TodoListComponent() {
 
     const dispatch = useDispatch();
     const confirmModal = useSelector((state)=>state.confirmModal);
