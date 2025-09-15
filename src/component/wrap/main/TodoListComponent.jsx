@@ -21,6 +21,8 @@ export default function TodoListComponent() {
     const [del, setDel] = useState('');                 // 삭제 번호 저장 상태변수
     const delNum = useRef(null);
 
+
+
     const [page, setPage] = React.useState(1);
 
     // 게산만 사용하는 일반변수 선언
@@ -39,6 +41,17 @@ export default function TodoListComponent() {
     const 페이지번호 = [...Array(그룹끝 - 그룹시작 + 1)].map((item, i)=>그룹시작+i);
 
   
+
+
+    // 다음, 이전, 페이지번호 클릭 이벤트
+    const onClickPage=(e, n)=>{
+        e.preventDefault();
+        setPage( n ) // 페이지 번호 변경
+    }
+
+
+
+
 
 
 
@@ -364,14 +377,6 @@ export default function TodoListComponent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[crud])
 
-
-    // 다음, 이전, 페이지번호 클릭 이벤트
-    const onClickPage=(e, n)=>{
-        e.preventDefault();
-        setPage( n ) // 페이지 번호 변경
-    }
-
-
     return (
         <section id="todoSection">
             <div className="container">
@@ -423,37 +428,39 @@ export default function TodoListComponent() {
                                             return(
                                                <li key={item.번호} data-id={item.번호} className={`${item.완료?'completed':''} ${(crud==='UPDATE' && (update.번호===item.번호)) ? ' on':''}`}>
                                                    <div>
-                                                        <input 
-                                                            type="checkbox" 
-                                                            data-id={item.번호} 
-                                                            name={`chk${item.번호}`} 
-                                                            id={`chk${item.번호}`}
-                                                            className='chk'
-                                                            value={item.할일}
-                                                            checked={item.완료}
-                                                            onChange={(e)=>onChangeCheckbox(e, item)}
-                                                        />
-                                                        <p onClick={()=>onClickTodoUpdate(item)}>
-                                                            <strong>{item.할일}</strong>                                                            
-                                                            <span>{format(item.기한, 'yyyy-MM-dd HH:mm')}</span>
-                                                        </p>
-                                                       
+                                                        <div className="left-box">
+                                                            <input 
+                                                                type="checkbox" 
+                                                                data-id={item.번호} 
+                                                                name={`chk${item.번호}`} 
+                                                                id={`chk${item.번호}`}
+                                                                className='chk'
+                                                                value={item.할일}
+                                                                checked={item.완료}
+                                                                onChange={(e)=>onChangeCheckbox(e, item)}
+                                                            />
 
-                                                        <button
-                                                            className="del-btn"
-                                                            value={item.번호}
-                                                            data-id={item.번호}
-                                                            onClick={(e)=>onClickDelBtn(e,item.번호)}
-                                                        />
-
-                                                        {
-                                                        (crud==='UPDATE' && (update.번호===item.번호)) && 
-                                                        <span className='update-box'>
-                                                            <button  onClick={onClickUpdateOk}>수정</button>
-                                                            <button  onClick={onClickUpdateCancle}>취소</button>
+                                                            <p onClick={()=>onClickTodoUpdate(item)}>
+                                                                <span>{format(item.기한, 'yyyy-MM-dd HH:mm')}</span> 
+                                                                <strong>{item.할일}</strong>
+                                                            </p>
+                                                        </div>
+                                                        <span className='right-box'>                                                            
+                                                            
+                                                            {
+                                                            (crud==='UPDATE' && (update.번호===item.번호)) && 
+                                                            <span className='update-box'>
+                                                                <button  onClick={onClickUpdateOk}>수정</button>
+                                                                <button  onClick={onClickUpdateCancle}>취소</button>
+                                                            </span>
+                                                            }   
+                                                            <button
+                                                                className="del-btn"
+                                                                value={item.번호}
+                                                                data-id={item.번호}
+                                                                onClick={(e)=>onClickDelBtn(e,item.번호)}
+                                                            />                                                 
                                                         </span>
-                                                        }                                                    
-
                                                    </div>
                                                </li> 
                                             )
@@ -461,10 +468,6 @@ export default function TodoListComponent() {
                                     })     
                                }
                             </ul>
-
-
-
-
                         </div>
 
                         <hr />
@@ -479,39 +482,44 @@ export default function TodoListComponent() {
 
                             {
                                 // eslint-disable-next-line array-callback-return
-                                todoList.map((item)=>{
+                                슬라이스.map((item)=>{
                                     if(item.완료===1){
                                         return(
-                                            <li key={item.번호} data-id={item.번호} className='completed'>
+                                            <li key={item.번호} data-id={item.번호} className={`${item.완료?'completed':''} ${(crud==='UPDATE' && (update.번호===item.번호)) ? ' on':''}`}>
                                                 <div>
-                                                    <input 
-                                                        type="checkbox" 
-                                                        data-id={item.번호} 
-                                                        name={`chk${item.번호}`} 
-                                                        id={`chk${item.번호}`}
-                                                        className='chk'
-                                                        value={item.할일}
-                                                        checked={item.완료}
-                                                        onChange={(e)=>onChangeCheckbox(e, item)}
-                                                    />
-                                                    <p onClick={()=>onClickTodoUpdate(item)}>
-                                                        <strong>{item.할일}</strong>                                                            
-                                                        <span>{format(item.기한, 'yyyy-MM-dd HH:mm')}</span>
-                                                    </p>
-                                                    
-                                                    <button
-                                                        className="del-btn"
-                                                        value={item.번호}
-                                                        data-id={item.번호}
-                                                        onClick={(e)=>onClickDelBtn(e,item.번호)}
-                                                    />                                                       
-                                                    {
-                                                    (crud==='UPDATE' && (update.번호===item.번호)) && 
-                                                    <span className='update-box'>
-                                                        <button  onClick={onClickUpdateOk}>수정</button>
-                                                        <button  onClick={onClickUpdateCancle}>취소</button>
+                                                    <div className="left-box">
+                                                        <input 
+                                                            type="checkbox" 
+                                                            data-id={item.번호} 
+                                                            name={`chk${item.번호}`} 
+                                                            id={`chk${item.번호}`}
+                                                            className='chk'
+                                                            value={item.할일}
+                                                            checked={item.완료}
+                                                            onChange={(e)=>onChangeCheckbox(e, item)}
+                                                        />
+
+                                                        <p onClick={()=>onClickTodoUpdate(item)}>
+                                                            <span>{format(item.기한, 'yyyy-MM-dd HH:mm')}</span> 
+                                                            <strong>{item.할일}</strong>
+                                                        </p>
+                                                    </div>
+                                                    <span className='right-box'>                                                            
+                                                        
+                                                        {
+                                                        (crud==='UPDATE' && (update.번호===item.번호)) && 
+                                                        <span className='update-box'>
+                                                            <button  onClick={onClickUpdateOk}>수정</button>
+                                                            <button  onClick={onClickUpdateCancle}>취소</button>
+                                                        </span>
+                                                        }   
+                                                        <button
+                                                            className="del-btn"
+                                                            value={item.번호}
+                                                            data-id={item.번호}
+                                                            onClick={(e)=>onClickDelBtn(e,item.번호)}
+                                                        />                                                 
                                                     </span>
-                                                    }                                                    
                                                 </div>
                                             </li> 
                                         )
@@ -523,7 +531,7 @@ export default function TodoListComponent() {
                         </div>
 
 
-                            <div className="pagenation-box">
+                        <div className="pagenation-box">
 
                                 {/* 처음 */}
                             {    
