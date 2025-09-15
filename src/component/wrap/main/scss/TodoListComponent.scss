@@ -159,7 +159,7 @@
 
             ul {
               width: 100%;
-              padding: 0 20px;
+              padding: 0;
               li {
                 width: 100%;
                 border-bottom: 1px solid #eee;
@@ -176,78 +176,85 @@
 
                 > div {
                   width: 100%;
-                  padding: 10px 0;
+                  height: 100%;
+                  padding: 10px 20px 10px 0;
                   display: flex;
                   position: relative;
                   align-items: center;
-                  input[type='checkbox'] {
-                    width: 20px;
-                    height: 20px;
-                    margin-right: 20px;
-                    appearance: none;
-                    border: 1px solid #aaa;
-                    border-radius: 5px;
-                    &:checked {
-                      background: url(../../../../../public/img/check_24dp_5F6368_FILL0_wght300_GRAD0_opsz24_red.svg) no-repeat 50% 50%;
-                      background-size: 13px auto;                      
-                    }
-                  }
-
-                  p {
-                    width: calc(100% - 190px);
-                    height: 35px;
+                  justify-content: space-between;
+                  .left-box {
                     display: flex;
-                    align-items: center;
-                    font-size: 15px;
-                    justify-content: space-between;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    strong{
-                      font-weight: 400;
-                      color: #555;                      
-                    }
-                    span {
-                      color: #555;
-                    }                   
-                  }
-
-                  button.del-btn {
-                    width: 25px;
-                    height: 25px;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transform: translate(10px, 0);                    
-                    background: url(../../../../../public/img/close_24dp_5F6368_FILL0_wght300_GRAD0_opsz24.svg) no-repeat 50% 50%;
-                    background-size: 14px 14px;
-                    transition: all 0.3s;
-                    &:hover {   
-                      border-color:  rgba(204, 0, 0, 0.5);
-                      background-image: url(../../../../../public/img/close_24dp_5F6368_FILL0_wght300_GRAD0_opsz24_red.svg);
-                    }
-                  }
-
-                  .update-box {
-                    position: absolute;
-                    top: 0;
-                    right: 10px;
                     height: 100%;
-                    display: flex;
                     align-items: center;
-                    button {
-                      width: 45px;
+                    input[type='checkbox'] {
+                      width: 20px;
+                      height: 20px;
+                      margin-right: 20px;
+                      appearance: none;
+                      border: 1px solid #aaa;
+                      border-radius: 5px;
+                      &:checked {
+                        background: url(../../../../../public/img/check_24dp_5F6368_FILL0_wght300_GRAD0_opsz24_red.svg) no-repeat 50% 50%;
+                        background-size: 13px auto;                      
+                      }
+                    }
+                    p {
+                      // width: calc(100% - 100px);
+                      width: auto;
+                      height: 35px;
+                      display: flex;
+                      align-items: center;
+                      font-size: 15px;
+                      justify-content: space-between;
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      strong{
+                        font-weight: 400;
+                        color: #555;                      
+                      }
+                      span {
+                        color: #555;
+                      }                   
+                    }
+                  }
+                  .right-box {
+                    display: flex;
+                    button.del-btn {
+                      width: 25px;
                       height: 25px;
-                      background: none;
-                      color: #555;
+                      margin-right: 10px;
                       border: 1px solid #ccc;
-                      margin: 0 2px;
                       border-radius: 5px;
                       cursor: pointer;
+                      transform: translate(10px, 0);                    
+                      background: url(../../../../../public/img/close_24dp_5F6368_FILL0_wght300_GRAD0_opsz24.svg) no-repeat 50% 50%;
+                      background-size: 14px 14px;
                       transition: all 0.3s;
-                      &:hover {
-                        color: #c00;
+                      &:hover {   
                         border-color:  rgba(204, 0, 0, 0.5);
+                        background-image: url(../../../../../public/img/close_24dp_5F6368_FILL0_wght300_GRAD0_opsz24_red.svg);
+                      }
+                    }
+
+                    .update-box {
+                      height: 100%;
+                      display: flex;
+                      align-items: center;
+                      button {
+                        width: 40px;
+                        height: 25px;
+                        background: none;
+                        color: #555;
+                        border: 1px solid #ccc;
+                        margin: 0 2px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        transition: all 0.3s;
+                        &:hover {
+                          color: #c00;
+                          border-color:  rgba(204, 0, 0, 0.5);
+                        }
                       }
                     }
                   }
