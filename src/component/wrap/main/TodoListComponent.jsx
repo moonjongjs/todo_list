@@ -409,7 +409,7 @@ export default function TodoListComponent() {
 
                                                             <p onClick={()=>onClickTodoUpdate(item)}>
                                                                 <span>{format(item.기한, 'yyyy-MM-dd HH:mm')}</span> 
-                                                                &nbsp;&nbsp;&nbsp;&nbsp;<strong>{item.할일}</strong>
+                                                                <strong>{item.할일}</strong>
                                                             </p>
                                                         </div>
                                                         <span className='right-box'>                                                            
@@ -468,7 +468,7 @@ export default function TodoListComponent() {
 
                                                         <p onClick={()=>onClickTodoUpdate(item)}>
                                                             <span>{format(item.기한, 'yyyy-MM-dd HH:mm')}</span> 
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;<strong>{item.할일}</strong>
+                                                            <strong>{item.할일}</strong>
                                                         </p>
                                                     </div>
                                                     <span className='right-box'>                                                            
