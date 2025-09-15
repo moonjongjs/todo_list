@@ -38,9 +38,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <body>
-          <ProviderRedux  children={children}>
+          <ProviderRedux>
             <ProviderQuery>
-              <WrapComponent children={children} />
+              <WrapComponent>children={children}</WrapComponent>
             </ProviderQuery>
           </ProviderRedux>        
       </body>
